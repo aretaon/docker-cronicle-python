@@ -42,5 +42,5 @@ Thanks to [flavsdotpy](github.com/flavsdotpy) for writing the python plugin and 
 
 ## Authors
 
-* **[flavsdotpy](github.com/flavsdotpy)**
-* **[aretaon](github.com/aretaon)**
+* **[flavsdotpy](https://github.com/flavsdotpy)**
+* **[aretaon](https://github.com/aretaon)**
