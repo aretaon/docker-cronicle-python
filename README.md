@@ -2,25 +2,20 @@
 
 Docker project for Cronicle, bundling a python environment and script runner.
 
-## Instalation
+This is a modified version of https://github.com/flavsdotpy/docker-cronicle-python adapted to run with https://github.com/cronicle-edge/cronicle-edge v1.14.1+
 
-### 1. Prepare working dir
+## Create the container
 
-* Execute: `make prepare`
+When using podman create a container from the provided Dockerfile as follows
 
-This command creates the folder `.cronicle` within your home directory.
+  podman build -t local/cronicle-python -f Dockerfile
 
-### 2. Build the image
+Once this image is ready, mount local volumes and run as follows
 
-* Execute: `make build`
+  podman run --rm -it local/cronicle-python -volume scripts:/opt/cronicle/scripts/python -volume data:/opt/cronicle/data -volume logs:/opt/cronicle/logs -hostname cronicle-python-manager manager
 
-This commands builds the docker image from this repo.
-
-### 3. Run container
-
-* Execute: `make run`
-
-This commands creates and runs a docker container with the image created above. It exposes the console at port `3012` and mounts the directory `$HOME/.cronicle` as the base for cronicle file system.
+Note that a persistent hostname is necessary as cronicle will assign the manager role based on regex matching to the hostname and rotating container names will prevent this.
+Once the container is up, the webinterface can be reached by default at port 3012:
 
 Default account and password:
 
@@ -29,7 +24,7 @@ Default account and password:
 
 ## Adding a new Python script to run
 
-* Copy your python script to `$HOME/.cronicle/scripts/python`
+* Copy your python script to `scripts` (see volume mount path above)
 * Open [Cronicle console](localhost:3012)
 * Go to `Schedule > [+] Add event...`
 * Create the job as:
@@ -43,8 +38,9 @@ For all other configurations, please refer to [cronicle official docs](https://g
 
 ## Acknowledgments
 
-Thanks `soulteary` for making Cronicle available for Docker.
+Thanks to [flavsdotpy](github.com/flavsdotpy) for writing the python plugin and setting up the initial repository.  
 
 ## Authors
 
 * **[flavsdotpy](github.com/flavsdotpy)**
+* **[aretaon](github.com/aretaon)**
